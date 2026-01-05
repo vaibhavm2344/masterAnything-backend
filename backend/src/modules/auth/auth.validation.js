@@ -8,3 +8,11 @@ export const validateRegisterInput = ({name, email, password}) => {
 
     return true;
 };
+
+export const validateLoginInput = ({email, password}) => {
+    if(!email || !password) {
+        throw new Error("All fields are required");
+    }
+
+    return true;
+};
