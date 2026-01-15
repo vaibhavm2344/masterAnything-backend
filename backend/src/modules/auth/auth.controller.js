@@ -1,5 +1,6 @@
 import { registerUser, loginUser, refreshAccessToken, logoutUser } from "./auth.service.js";
 import { validateRegisterInput, validateLoginInput } from "./auth.validation.js";
+import rateLimit from 'express-rate-limit';
 
 export const register = async(req, res, next) => {
     try{
@@ -95,3 +96,16 @@ export const logout = async(req, res, next) => {
         next(error);
     }
 };
+
+export const getMe = async(req, res) => {
+    res.json({
+        userId : req.user.id,
+        role: req.user.role,
+    });
+};
+
+export const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 15 minutes',
+});
