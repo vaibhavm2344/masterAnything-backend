@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t masteranything-backend:latest .'
+                sh 'docker build -t masteranything-backend:latest ./backend'
             }
         }
 
