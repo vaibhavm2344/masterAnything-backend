@@ -1,13 +1,21 @@
-import { aiQueue } from "../../config/queue.js";
+import { aiQueue } from "../ai/ai.queue.js";
+import Planner from "../../models/Planner.model.js";
 
 export const generatePlan = async (req, res, next) => {
   try {
     const { topic, days } = req.body;
 
+     const planner = await Planner.create({
+      userId: req.user.id,
+      topic,
+      days,
+      status: "pending"
+    });
+
     const job = await aiQueue.add("generate-plan", {
       topic,
       days,
-      userId: req.user.id
+      plannerId: planner._id,
     });
 
     res.status(202).json({

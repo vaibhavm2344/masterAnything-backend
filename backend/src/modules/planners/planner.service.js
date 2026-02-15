@@ -3,7 +3,7 @@ import { aiQueue } from "../ai/ai.queue.js";
 
 export const createPlanner = async ({ userId, topic, days }) => {
   const planner = await Planner.create({
-    user: userId,
+    userId: userId,
     topic,
     days,
     status: "pending"
