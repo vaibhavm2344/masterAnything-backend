@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+      - redis
+    container_name: backend
+
+  worker:
+    build: .
+    command: npm run worker
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+      - redis
+    container_name: worker
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    container_name: redis
