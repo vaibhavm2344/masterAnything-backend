@@ -4,10 +4,8 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                dir('backend') {
                     git branch: 'main',
                     url: 'https://github.com/vaibhavm2344/masterAnything-backend.git'
-                }
             }
         }
     }
